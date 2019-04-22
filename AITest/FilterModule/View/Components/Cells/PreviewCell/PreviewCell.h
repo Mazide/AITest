@@ -1,5 +1,5 @@
 //
-//  FilterCell.h
+//  PreviewCell.h
 //  AITest
 //
 //  Created by Nikita Demidov on 21/04/2019.
@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CellModelConfigurable.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FilterCell : UICollectionViewCell
+@interface PreviewCell : UICollectionViewCell <CellModelCofigurable>
+
+@property (weak, nonatomic) IBOutlet UIImageView *previewImageView;
 
 @end
 

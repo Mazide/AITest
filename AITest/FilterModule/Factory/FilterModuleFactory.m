@@ -18,6 +18,7 @@
     FilterInteractor *interactor = [FilterInteractor new];
     FilterPreseter *presenter = [[FilterPreseter alloc] initWithView:viewController image:image interactor:interactor];
     viewController.output = presenter;
+    interactor.output = presenter;
     return viewController;
 }
 

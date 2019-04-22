@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FilterInteractor : NSObject <FilterInteractorInput>
 
-- (instancetype)initWithOutput:(id<FilterInteractorOutput>)output;
+@property (weak, nonatomic) id<FilterInteractorOutput> output;
 
 @end
 

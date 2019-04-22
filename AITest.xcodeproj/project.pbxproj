@@ -21,10 +21,12 @@
 		FE43EA40226C9F4A000F6A51 /* FilterModuleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA3F226C9F4A000F6A51 /* FilterModuleFactory.m */; };
 		FE43EA44226CA02E000F6A51 /* CameraRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA43226CA02E000F6A51 /* CameraRouter.m */; };
 		FE43EA47226CA6AD000F6A51 /* FilterPreseter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA46226CA6AD000F6A51 /* FilterPreseter.m */; };
-		FE43EA4D226CDE63000F6A51 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA4B226CDE63000F6A51 /* FilterCell.m */; };
-		FE43EA4E226CDE63000F6A51 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE43EA4C226CDE63000F6A51 /* FilterCell.xib */; };
+		FE43EA4D226CDE63000F6A51 /* PreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA4B226CDE63000F6A51 /* PreviewCell.m */; };
+		FE43EA4E226CDE63000F6A51 /* PreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE43EA4C226CDE63000F6A51 /* PreviewCell.xib */; };
 		FE43EA53226CF2D5000F6A51 /* FilterInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA52226CF2D5000F6A51 /* FilterInteractor.m */; };
 		FE43EA57226CF411000F6A51 /* Preview.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA56226CF411000F6A51 /* Preview.m */; };
+		FE43EA5C226E4948000F6A51 /* PreviewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA5B226E4948000F6A51 /* PreviewCellModel.m */; };
+		FE43EA61226E4C07000F6A51 /* CollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,13 +57,18 @@
 		FE43EA43226CA02E000F6A51 /* CameraRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraRouter.m; sourceTree = "<group>"; };
 		FE43EA45226CA6AD000F6A51 /* FilterPreseter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterPreseter.h; sourceTree = "<group>"; };
 		FE43EA46226CA6AD000F6A51 /* FilterPreseter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterPreseter.m; sourceTree = "<group>"; };
-		FE43EA4A226CDE63000F6A51 /* FilterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
-		FE43EA4B226CDE63000F6A51 /* FilterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
-		FE43EA4C226CDE63000F6A51 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		FE43EA4A226CDE63000F6A51 /* PreviewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewCell.h; sourceTree = "<group>"; };
+		FE43EA4B226CDE63000F6A51 /* PreviewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewCell.m; sourceTree = "<group>"; };
+		FE43EA4C226CDE63000F6A51 /* PreviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewCell.xib; sourceTree = "<group>"; };
 		FE43EA51226CF2D5000F6A51 /* FilterInteractor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterInteractor.h; sourceTree = "<group>"; };
 		FE43EA52226CF2D5000F6A51 /* FilterInteractor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterInteractor.m; sourceTree = "<group>"; };
 		FE43EA55226CF411000F6A51 /* Preview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Preview.h; sourceTree = "<group>"; };
 		FE43EA56226CF411000F6A51 /* Preview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Preview.m; sourceTree = "<group>"; };
+		FE43EA5A226E4948000F6A51 /* PreviewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewCellModel.h; sourceTree = "<group>"; };
+		FE43EA5B226E4948000F6A51 /* PreviewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewCellModel.m; sourceTree = "<group>"; };
+		FE43EA5E226E4967000F6A51 /* CellModelConfigurable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellModelConfigurable.h; sourceTree = "<group>"; };
+		FE43EA5F226E4C07000F6A51 /* CollectionViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewManager.h; sourceTree = "<group>"; };
+		FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +103,7 @@
 			children = (
 				FE43EA03226C7701000F6A51 /* AppDelegate.h */,
 				FE43EA04226C7701000F6A51 /* AppDelegate.m */,
+				FE43EA5D226E494D000F6A51 /* Base */,
 				FE43EA19226C812B000F6A51 /* CameraModule */,
 				FE43EA1A226C8139000F6A51 /* FilterModule */,
 				FE43EA0C226C7704000F6A51 /* Assets.xcassets */,
@@ -218,9 +226,7 @@
 		FE43EA49226CDE4D000F6A51 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				FE43EA4A226CDE63000F6A51 /* FilterCell.h */,
-				FE43EA4B226CDE63000F6A51 /* FilterCell.m */,
-				FE43EA4C226CDE63000F6A51 /* FilterCell.xib */,
+				FE43EA58226E48E6000F6A51 /* PreviewCell */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -241,6 +247,36 @@
 				FE43EA56226CF411000F6A51 /* Preview.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		FE43EA58226E48E6000F6A51 /* PreviewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FE43EA59226E48F2000F6A51 /* Model */,
+				FE43EA4A226CDE63000F6A51 /* PreviewCell.h */,
+				FE43EA4B226CDE63000F6A51 /* PreviewCell.m */,
+				FE43EA4C226CDE63000F6A51 /* PreviewCell.xib */,
+			);
+			path = PreviewCell;
+			sourceTree = "<group>";
+		};
+		FE43EA59226E48F2000F6A51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE43EA5A226E4948000F6A51 /* PreviewCellModel.h */,
+				FE43EA5B226E4948000F6A51 /* PreviewCellModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FE43EA5D226E494D000F6A51 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FE43EA5E226E4967000F6A51 /* CellModelConfigurable.h */,
+				FE43EA5F226E4C07000F6A51 /* CollectionViewManager.h */,
+				FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +340,7 @@
 				FE43EA20226C816A000F6A51 /* CameraViewController.xib in Resources */,
 				FE43EA3A226C9ED9000F6A51 /* FilterViewController.xib in Resources */,
 				FE43EA0D226C7704000F6A51 /* Assets.xcassets in Resources */,
-				FE43EA4E226CDE63000F6A51 /* FilterCell.xib in Resources */,
+				FE43EA4E226CDE63000F6A51 /* PreviewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,9 +354,11 @@
 				FE43EA1F226C816A000F6A51 /* CameraViewController.m in Sources */,
 				FE43EA57226CF411000F6A51 /* Preview.m in Sources */,
 				FE43EA47226CA6AD000F6A51 /* FilterPreseter.m in Sources */,
-				FE43EA4D226CDE63000F6A51 /* FilterCell.m in Sources */,
+				FE43EA4D226CDE63000F6A51 /* PreviewCell.m in Sources */,
+				FE43EA5C226E4948000F6A51 /* PreviewCellModel.m in Sources */,
 				FE43EA34226C9A90000F6A51 /* TakePhotoButton.m in Sources */,
 				FE43EA27226C8E3F000F6A51 /* CameraPresenter.m in Sources */,
+				FE43EA61226E4C07000F6A51 /* CollectionViewManager.m in Sources */,
 				FE43EA13226C7704000F6A51 /* main.m in Sources */,
 				FE43EA40226C9F4A000F6A51 /* FilterModuleFactory.m in Sources */,
 				FE43EA39226C9ED9000F6A51 /* FilterViewController.m in Sources */,

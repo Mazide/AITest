@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FilterPreseter : NSObject <FilterViewOutput>
+@interface FilterPreseter : NSObject <FilterViewOutput, FilterInteractorOutput>
 
 - (instancetype)initWithView:(id<FilterViewInput>)view image:(UIImage*)image interactor:(id<FilterInteractorInput>)interactor;
 

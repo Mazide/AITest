@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Preview.h"
+#import "PreviewCellModel.h"
 
 @protocol FilterViewInput <NSObject>
 
 - (void)setupImage:(UIImage*)image;
+- (void)displayPreviews:(NSArray<PreviewCellModel*>*)previewsCellsModels;
 
 @end
 

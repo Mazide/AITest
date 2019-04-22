@@ -9,7 +9,7 @@
 #import "FilterPreseter.h"
 #import "FilterProtocols.h"
 
-@interface FilterPreseter()
+@interface FilterPreseter() 
 
 @property (weak, nonatomic) id<FilterViewInput> view;
 @property (strong, nonatomic) id<FilterInteractorInput> interactor;
@@ -36,8 +36,20 @@
 
 - (void)viewDidLoad {
     [self.interactor obtainPreviewsForImage:self.image];
+    [self.view setupImage:self.image];
 }
 
 #pragma mark - FilterInteractorOutput
+
+- (void)didReceivePreviews:(NSArray<Preview *> *)previews {
+    __auto_type cellModels = [NSMutableArray<PreviewCellModel*> new];
+    for (Preview *preview in previews) {
+        __auto_type cellModel = [[PreviewCellModel alloc] initWithCellId:@"PreviewCell"
+                                                                 modelId:[preview.name hash]
+                                                            previewImage:preview.image];
+        [cellModels addObject:cellModel];
+    }
+    [self.view displayPreviews:cellModels];
+}
 
 @end

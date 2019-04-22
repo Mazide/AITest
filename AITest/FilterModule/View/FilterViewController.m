@@ -7,10 +7,14 @@
 //
 
 #import "FilterViewController.h"
+#import "CollectionViewManager.h"
 
-@interface FilterViewController ()
+@interface FilterViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UICollectionView *previewsCollectionView;
+
+@property (strong, nonatomic) CollectionViewManager *collectionManager;
 
 @end
 
@@ -27,6 +31,29 @@
 
 - (void)setupImage:(UIImage *)image {
     self.imageView.image = image;
+}
+
+- (void)displayPreviews:(NSArray<PreviewCellModel *> *)previewsCellsModels {
+    self.collectionManager = [[CollectionViewManager alloc] initWithCellModels:previewsCellsModels];
+    __auto_type registeredCellIds = [[NSMutableSet<NSString*> alloc] init];
+    for (PreviewCellModel *model in previewsCellsModels) {
+        if ([registeredCellIds containsObject:model.cellId]) {
+            continue;
+        }
+        [registeredCellIds addObject:model.cellId];
+        __auto_type nib = [UINib nibWithNibName:model.cellId bundle:nil];
+        [self.previewsCollectionView registerNib:nib forCellWithReuseIdentifier:model.cellId];
+    }
+    self.previewsCollectionView.dataSource = self.collectionManager;
+    self.previewsCollectionView.delegate = self;
+    self.previewsCollectionView.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.2];
+    [self.previewsCollectionView reloadData];
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(70, 70);
 }
 
 @end
