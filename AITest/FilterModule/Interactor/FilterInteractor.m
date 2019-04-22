@@ -41,6 +41,7 @@
                 UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:previewImage.scale orientation:previewImage.imageOrientation];
                 Preview *preview = [[Preview alloc] initWithName:filterName image:filteredImage];
                 [previews addObject:preview];
+                CGImageRelease(imageRef);
             }
         }
 
@@ -58,7 +59,7 @@
         CIContext *context = [[CIContext alloc] initWithOptions:nil];
         CGImageRef imageRef = [context createCGImage:filteredCIImage fromRect:filteredCIImage.extent];
         UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:image.imageOrientation];
-
+        CGImageRelease(imageRef);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.output didReceiveFiltedImage:filteredImage];
         });
