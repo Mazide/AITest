@@ -12,7 +12,7 @@
 
 @protocol FilterViewInput <NSObject>
 
-- (void)setupImage:(UIImage*)image;
+- (void)displayImage:(UIImage*)image;
 - (void)displayPreviews:(NSArray<PreviewCellModel*>*)previewsCellsModels;
 
 @end
@@ -20,17 +20,29 @@
 @protocol FilterViewOutput <NSObject>
 
 - (void)viewDidLoad;
+- (void)didSelectPreview:(PreviewCellModel*)model;
+- (void)didTapShare;
+- (void)didTapBack;
 
 @end
 
 @protocol FilterInteractorInput <NSObject>
 
 - (void)obtainPreviewsForImage:(UIImage*)image;
+- (void)obtainFilteredImage:(UIImage*)image withFilterName:(NSString *)filterName;
 
 @end
 
 @protocol FilterInteractorOutput <NSObject>
 
 - (void)didReceivePreviews:(NSArray<Preview*>*)filters;
+- (void)didReceiveFiltedImage:(UIImage*)image;
+
+@end
+
+@protocol FilterRouterInput <NSObject>
+
+- (void)back;
+- (void)showShareExtensionWithImage:(UIImage*)image;
 
 @end

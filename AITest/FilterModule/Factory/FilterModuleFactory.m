@@ -10,13 +10,16 @@
 #import "FilterViewController.h"
 #import "FilterPreseter.h"
 #import "FilterInteractor.h"
+#import "FilterRouter.h"
 
 @implementation FilterModuleFactory
 
-- (UIViewController*)viewControllerWithImage:(UIImage*)image {
+- (UIViewController*)viewControllerWithImage:(UIImage*)image
+                        navigationController:(UINavigationController*)navigationController {
     FilterViewController *viewController = [FilterViewController new];
     FilterInteractor *interactor = [FilterInteractor new];
-    FilterPreseter *presenter = [[FilterPreseter alloc] initWithView:viewController image:image interactor:interactor];
+    FilterRouter *router = [[FilterRouter alloc] initWithNavigationController:navigationController];
+    FilterPreseter *presenter = [[FilterPreseter alloc] initWithView:viewController image:image interactor:interactor router:router];
     viewController.output = presenter;
     interactor.output = presenter;
     return viewController;

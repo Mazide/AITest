@@ -26,7 +26,8 @@
 		FE43EA53226CF2D5000F6A51 /* FilterInteractor.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA52226CF2D5000F6A51 /* FilterInteractor.m */; };
 		FE43EA57226CF411000F6A51 /* Preview.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA56226CF411000F6A51 /* Preview.m */; };
 		FE43EA5C226E4948000F6A51 /* PreviewCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA5B226E4948000F6A51 /* PreviewCellModel.m */; };
-		FE43EA61226E4C07000F6A51 /* CollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */; };
+		FE43EA61226E4C07000F6A51 /* CollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA60226E4C07000F6A51 /* CollectionViewDataSource.m */; };
+		FE43EA65226E7C1E000F6A51 /* FilterRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = FE43EA64226E7C1E000F6A51 /* FilterRouter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,8 +68,10 @@
 		FE43EA5A226E4948000F6A51 /* PreviewCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewCellModel.h; sourceTree = "<group>"; };
 		FE43EA5B226E4948000F6A51 /* PreviewCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewCellModel.m; sourceTree = "<group>"; };
 		FE43EA5E226E4967000F6A51 /* CellModelConfigurable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellModelConfigurable.h; sourceTree = "<group>"; };
-		FE43EA5F226E4C07000F6A51 /* CollectionViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewManager.h; sourceTree = "<group>"; };
-		FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewManager.m; sourceTree = "<group>"; };
+		FE43EA5F226E4C07000F6A51 /* CollectionViewDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewDataSource.h; sourceTree = "<group>"; };
+		FE43EA60226E4C07000F6A51 /* CollectionViewDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewDataSource.m; sourceTree = "<group>"; };
+		FE43EA63226E7C1E000F6A51 /* FilterRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilterRouter.h; sourceTree = "<group>"; };
+		FE43EA64226E7C1E000F6A51 /* FilterRouter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FilterRouter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				FE43EA35226C9EC6000F6A51 /* FilterProtocols.h */,
+				FE43EA62226E7C05000F6A51 /* Router */,
 				FE43EA54226CF403000F6A51 /* Models */,
 				FE43EA3D226C9EFA000F6A51 /* Factory */,
 				FE43EA3B226C9EDD000F6A51 /* View */,
@@ -273,10 +277,19 @@
 			isa = PBXGroup;
 			children = (
 				FE43EA5E226E4967000F6A51 /* CellModelConfigurable.h */,
-				FE43EA5F226E4C07000F6A51 /* CollectionViewManager.h */,
-				FE43EA60226E4C07000F6A51 /* CollectionViewManager.m */,
+				FE43EA5F226E4C07000F6A51 /* CollectionViewDataSource.h */,
+				FE43EA60226E4C07000F6A51 /* CollectionViewDataSource.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		FE43EA62226E7C05000F6A51 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				FE43EA63226E7C1E000F6A51 /* FilterRouter.h */,
+				FE43EA64226E7C1E000F6A51 /* FilterRouter.m */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE43EA65226E7C1E000F6A51 /* FilterRouter.m in Sources */,
 				FE43EA1F226C816A000F6A51 /* CameraViewController.m in Sources */,
 				FE43EA57226CF411000F6A51 /* Preview.m in Sources */,
 				FE43EA47226CA6AD000F6A51 /* FilterPreseter.m in Sources */,
@@ -358,7 +372,7 @@
 				FE43EA5C226E4948000F6A51 /* PreviewCellModel.m in Sources */,
 				FE43EA34226C9A90000F6A51 /* TakePhotoButton.m in Sources */,
 				FE43EA27226C8E3F000F6A51 /* CameraPresenter.m in Sources */,
-				FE43EA61226E4C07000F6A51 /* CollectionViewManager.m in Sources */,
+				FE43EA61226E4C07000F6A51 /* CollectionViewDataSource.m in Sources */,
 				FE43EA13226C7704000F6A51 /* main.m in Sources */,
 				FE43EA40226C9F4A000F6A51 /* FilterModuleFactory.m in Sources */,
 				FE43EA39226C9ED9000F6A51 /* FilterViewController.m in Sources */,

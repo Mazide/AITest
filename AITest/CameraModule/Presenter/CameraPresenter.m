@@ -51,6 +51,9 @@
 #pragma mark - AVCaptureSession setup
 
 - (void)setupCaptureSession {
+    if (self.capturesSession) {
+        return;
+    }
     self.capturesSession = [AVCaptureSession new];
     self.capturesSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
@@ -118,8 +121,9 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self.router openFilterViewWithImage:image];
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [self.router openFilterViewWithImage:image];
+    }];
 }
 
 @end

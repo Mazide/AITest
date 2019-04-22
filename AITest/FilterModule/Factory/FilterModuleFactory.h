@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FilterModuleFactory : NSObject
 
-- (UIViewController*)viewControllerWithImage:(UIImage*)image;
-
+- (UIViewController*)viewControllerWithImage:(UIImage*)image
+                        navigationController:(UINavigationController*)navigationController;
 @end
 
 NS_ASSUME_NONNULL_END

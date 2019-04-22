@@ -7,14 +7,14 @@
 //
 
 #import "FilterViewController.h"
-#import "CollectionViewManager.h"
+#import "CollectionViewDataSource.h"
 
 @interface FilterViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UICollectionView *previewsCollectionView;
 
-@property (strong, nonatomic) CollectionViewManager *collectionManager;
+@property (strong, nonatomic) CollectionViewDataSource *collectionManager;
 
 @end
 
@@ -24,17 +24,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.previewsCollectionView.delegate = self;
+    self.previewsCollectionView.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.2];
+
     [self.output viewDidLoad];
+}
+
+#pragma mark - IBActions
+
+- (IBAction)back:(id)sender {
+    [self.output didTapBack];
+}
+
+- (IBAction)share:(id)sender {
+    [self.output didTapShare];
 }
 
 #pragma mark - FilterViewInput
 
-- (void)setupImage:(UIImage *)image {
+- (void)displayImage:(UIImage *)image {
     self.imageView.image = image;
 }
 
 - (void)displayPreviews:(NSArray<PreviewCellModel *> *)previewsCellsModels {
-    self.collectionManager = [[CollectionViewManager alloc] initWithCellModels:previewsCellsModels];
+    self.collectionManager = [[CollectionViewDataSource alloc] initWithCellModels:previewsCellsModels];
     __auto_type registeredCellIds = [[NSMutableSet<NSString*> alloc] init];
     for (PreviewCellModel *model in previewsCellsModels) {
         if ([registeredCellIds containsObject:model.cellId]) {
@@ -45,9 +59,14 @@
         [self.previewsCollectionView registerNib:nib forCellWithReuseIdentifier:model.cellId];
     }
     self.previewsCollectionView.dataSource = self.collectionManager;
-    self.previewsCollectionView.delegate = self;
-    self.previewsCollectionView.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.2];
     [self.previewsCollectionView reloadData];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    id<CellModel> model = [self.collectionManager modelForIndexPath:indexPath];
+    [self.output didSelectPreview:model];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout

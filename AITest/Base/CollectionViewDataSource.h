@@ -1,5 +1,5 @@
 //
-//  CollectionViewManager.h
+//  CollectionViewDataSource.h
 //  AITest
 //
 //  Created by Nikita Demidov on 22/04/2019.
@@ -11,9 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CollectionViewManager : NSObject <UICollectionViewDataSource>
+@interface CollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
 - (instancetype)initWithCellModels:(NSArray<id<CellModel>>*)cellModels;
+
+- (id<CellModel>)modelForIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

@@ -13,7 +13,7 @@
 @synthesize cellId;
 @synthesize modelId;
 
-- (instancetype)initWithCellId:(NSString *)cellId modelId:(NSUInteger)modelId previewImage:(UIImage *)image {
+- (instancetype)initWithCellId:(NSString *)cellId modelId:(NSString*)modelId previewImage:(UIImage *)image {
     self = [super init];
     if (self) {
         self.cellId = cellId;

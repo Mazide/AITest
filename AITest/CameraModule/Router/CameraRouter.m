@@ -32,7 +32,7 @@
 
 - (void)openFilterViewWithImage:(UIImage*)image {
     FilterModuleFactory *filterModuleFactory = [FilterModuleFactory new];
-    UIViewController *filterViewContoller = [filterModuleFactory viewControllerWithImage:image];
+    UIViewController *filterViewContoller = [filterModuleFactory viewControllerWithImage:image navigationController:self.navigationController];
     [self.navigationController pushViewController:filterViewContoller animated:YES];
 }
 

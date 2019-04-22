@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) UIImage *preview;
 
-- (instancetype)initWithCellId:(NSString*)cellId modelId:(NSUInteger)modelId previewImage:(UIImage*)image;
+- (instancetype)initWithCellId:(NSString*)cellId modelId:(NSString*)modelId previewImage:(UIImage*)image;
 
 @end
 

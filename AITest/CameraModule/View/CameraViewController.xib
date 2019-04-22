@@ -29,13 +29,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7F-Tv-yoj">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-eu-I7C">
-                            <rect key="frame" x="8" y="607" width="58" height="30"/>
-                            <state key="normal" title="Галерея"/>
-                            <connections>
-                                <action selector="takeFromGallery:" destination="-1" eventType="touchUpInside" id="KIl-Ij-eXt"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYc-ce-McR" customClass="TakePhotoButton">
                             <rect key="frame" x="162.5" y="597" width="50" height="50"/>
                             <constraints>
@@ -46,11 +39,22 @@
                                 <action selector="takePhoto:" destination="-1" eventType="touchUpInside" id="HoA-Nh-oJN"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCw-eu-I7C">
+                            <rect key="frame" x="25" y="602" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Aex-N6-udp"/>
+                                <constraint firstAttribute="height" constant="40" id="Haw-VV-aVr"/>
+                            </constraints>
+                            <state key="normal" image="gallery"/>
+                            <connections>
+                                <action selector="takeFromGallery:" destination="-1" eventType="touchUpInside" id="KIl-Ij-eXt"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="zCw-eu-I7C" firstAttribute="centerY" secondItem="nYc-ce-McR" secondAttribute="centerY" id="Gtw-iz-j3i"/>
-                        <constraint firstItem="zCw-eu-I7C" firstAttribute="leading" secondItem="I7F-Tv-yoj" secondAttribute="leading" constant="8" id="IKt-q3-ZdP"/>
+                        <constraint firstItem="zCw-eu-I7C" firstAttribute="leading" secondItem="I7F-Tv-yoj" secondAttribute="leading" constant="25" id="IKt-q3-ZdP"/>
                         <constraint firstAttribute="bottom" secondItem="nYc-ce-McR" secondAttribute="bottom" constant="20" id="QfT-Zd-GKy"/>
                         <constraint firstItem="nYc-ce-McR" firstAttribute="centerX" secondItem="I7F-Tv-yoj" secondAttribute="centerX" id="V7J-vV-wKG"/>
                     </constraints>
@@ -71,4 +75,7 @@
             <point key="canvasLocation" x="138.40000000000001" y="152.47376311844079"/>
         </view>
     </objects>
+    <resources>
+        <image name="gallery" width="48" height="48"/>
+    </resources>
 </document>

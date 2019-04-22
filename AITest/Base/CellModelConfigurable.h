@@ -9,7 +9,7 @@
 @protocol CellModel <NSObject>
 
 @property (strong, nonatomic) NSString *cellId;
-@property (assign, nonatomic) NSUInteger modelId;
+@property (strong, nonatomic) NSString* modelId;
 
 @end
 

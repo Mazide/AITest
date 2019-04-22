@@ -11,35 +11,65 @@
 @implementation FilterInteractor
 
 - (void)obtainPreviewsForImage:(UIImage *)image {
-    NSMutableArray<Preview*> *previews = [NSMutableArray<Preview*> new];
-    UIImage *previewImage = [self imageWithImage:image scaledToSize:CGSizeMake(70, 70)];
-    for (int i=0; i<10; i++) {
-        Preview *preview = [[Preview alloc] initWithName:@"filterName" image:previewImage];
-        [previews addObject:preview];
-    }
-    [self.output didReceivePreviews:previews];
-//    NSArray<NSString*>* filtersNames = [CIFilter filterNamesInCategory:kCICategoryBuiltIn];
-//    NSMutableArray<Preview*> *previews = [NSMutableArray<Preview*> new];
-//    for (NSString *name in filtersNames) {
-//        @autoreleasepool {
-//            CIFilter *filter = [CIFilter filterWithName:name];
-//
-//            CIContext *context = [[CIContext alloc] initWithOptions:nil];
-//            CIImage *ciImage = [[CIImage alloc] initWithImage:image];
-//            [filter setDefaults];
-//            NSLog(name);
-////            [filter setValue:ciImage forKey:kCIInputImageKey];
-//
-////            CIImage *filteredImageData = [filter valueForKey:kCIInputImageKey];
-////            CGImageRef imageRef = [context createCGImage:filteredImageData fromRect:filteredImageData.extent];
-////
-////            UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:image.imageOrientation];
-////            Preview *preview = [[Preview alloc] initWithName:name image:filteredImage];
-////            [previews addObject:preview];
-//        }
-//    }
-//
-//    [self.output didReceivePreviews:previews];
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(concurrentQueue, ^{
+        NSMutableArray<Preview*> *previews = [NSMutableArray<Preview*> new];
+        
+        CGFloat targetWidth = 70;
+        CGFloat targetHeight = image.size.height/(image.size.width/targetWidth);
+        UIImage *previewImage = [self imageWithImage:image scaledToSize:CGSizeMake(targetWidth, targetHeight)];
+
+        CIContext *context = [[CIContext alloc] initWithOptions:nil];
+        __auto_type filtersNames = @[@"CIPhotoEffectTonal",
+                                     @"CIPhotoEffectProcess",
+                                     @"CIPhotoEffectNoir",
+                                     @"CIPhotoEffectMono",
+                                     @"CIColorPosterize",
+                                     @"CIColorInvert",
+                                     @"CIPixellate",
+                                     @"CIMaximumComponent",
+                                     @"CIMinimumComponent",
+                                     @"CIPhotoEffectTransfer",
+                                     @"CISepiaTone",
+                                     @"CIVignette"];
+        CIImage *ciImage = [[CIImage alloc] initWithImage:previewImage];
+        
+        for (NSString *filterName in filtersNames) {
+            @autoreleasepool {
+                CIImage *filteredCIImage = [self filterWithName:filterName forImage:ciImage];
+                CGImageRef imageRef = [context createCGImage:filteredCIImage fromRect:filteredCIImage.extent];
+                UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:previewImage.scale orientation:previewImage.imageOrientation];
+                Preview *preview = [[Preview alloc] initWithName:filterName image:filteredImage];
+                [previews addObject:preview];
+            }
+        }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.output didReceivePreviews:previews];
+        });
+    });
+}
+
+- (void)obtainFilteredImage:(UIImage*)image withFilterName:(NSString *)filterName {
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(concurrentQueue, ^{
+        CIImage *ciImage = [[CIImage alloc] initWithImage:image];
+        CIImage *filteredCIImage = [self filterWithName:filterName forImage:ciImage];
+        CIContext *context = [[CIContext alloc] initWithOptions:nil];
+        CGImageRef imageRef = [context createCGImage:filteredCIImage fromRect:filteredCIImage.extent];
+        UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:image.imageOrientation];
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.output didReceiveFiltedImage:filteredImage];
+        });
+    });
+}
+
+- (CIImage*)filterWithName:(NSString*)name forImage:(CIImage*)ciImage {
+    CIFilter *filter = [CIFilter filterWithName:name];
+    [filter setValue:ciImage forKey:kCIInputImageKey];
+    CIImage *filteredImageData = [filter outputImage];
+    return filteredImageData;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
