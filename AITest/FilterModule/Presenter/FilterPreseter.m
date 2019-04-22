@@ -20,6 +20,8 @@ NSString *const NoneFilterName = @"None";
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) UIImage *filteredImage;
 
+@property (assign, nonatomic) BOOL imageProcessing;
+
 @end
 
 @implementation FilterPreseter
@@ -36,6 +38,7 @@ NSString *const NoneFilterName = @"None";
         _image = image;
         _interactor = interactor;
         _router = router;
+        _imageProcessing = NO;
     }
     return self;
 }
@@ -52,6 +55,12 @@ NSString *const NoneFilterName = @"None";
         [self.view displayImage:self.image];
         return;
     }
+    
+    if (self.imageProcessing) {
+        return;
+    }
+    self.imageProcessing = YES;
+
     [self.interactor obtainFilteredImage:self.image withFilterName:model.modelId];
 }
 
@@ -87,6 +96,7 @@ NSString *const NoneFilterName = @"None";
 - (void)didReceiveFiltedImage:(UIImage *)image {
     self.filteredImage = image;
     [self.view displayImage:image];
+    self.imageProcessing = NO;
 }
 
 
