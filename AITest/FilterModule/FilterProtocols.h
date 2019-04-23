@@ -28,7 +28,7 @@
 
 @protocol FilterInteractorInput <NSObject>
 
-- (void)obtainPreviewsForImage:(UIImage*)image;
+- (void)obtainPreviewsForImage:(UIImage *)image withTargetWidth:(CGFloat)targetWidth;
 - (void)obtainFilteredImage:(UIImage*)image withFilterName:(NSString *)filterName;
 
 @end

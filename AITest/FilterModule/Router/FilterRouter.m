@@ -29,7 +29,7 @@
 #pragma mark - FilterRouterInput
 
 -(void)back {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)showShareExtensionWithImage:(UIImage *)image {

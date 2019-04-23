@@ -8,35 +8,36 @@
 
 #import "FilterInteractor.h"
 
+@interface FilterInteractor()
+
+@property (strong, nonatomic) NSOperationQueue *filterQueue;
+
+@end
+
 @implementation FilterInteractor
 
-- (void)obtainPreviewsForImage:(UIImage *)image {
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(concurrentQueue, ^{
-        NSMutableArray<Preview*> *previews = [NSMutableArray<Preview*> new];
-        
-        CGFloat targetWidth = 70;
-        CGFloat targetHeight = image.size.height/(image.size.width/targetWidth);
-        UIImage *previewImage = [self imageWithImage:image scaledToSize:CGSizeMake(targetWidth, targetHeight)];
+-(NSOperationQueue *)filterQueue {
+    if (!_filterQueue) {
+        _filterQueue = [[NSOperationQueue alloc] init];
+    }
+    return _filterQueue;
+}
 
+- (void)obtainPreviewsForImage:(UIImage *)image withTargetWidth:(CGFloat)targetWidth {
+    [self.filterQueue cancelAllOperations];
+    __block NSMutableArray<Preview*> *previews = [NSMutableArray<Preview*> new];
+    __weak typeof(self) weakSelf = self;
+    NSOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
+        CGFloat targetHeight = image.size.height/(image.size.width/targetWidth);
+        UIImage *previewImage = [weakSelf imageWithImage:image scaledToSize:CGSizeMake(targetWidth, targetHeight)];
+        
         CIContext *context = [[CIContext alloc] initWithOptions:nil];
-        __auto_type filtersNames = @[@"CIPhotoEffectTonal",
-                                     @"CIPhotoEffectProcess",
-                                     @"CIPhotoEffectNoir",
-                                     @"CIPhotoEffectMono",
-                                     @"CIColorPosterize",
-                                     @"CIColorInvert",
-                                     @"CIPixellate",
-                                     @"CIMaximumComponent",
-                                     @"CIMinimumComponent",
-                                     @"CIPhotoEffectTransfer",
-                                     @"CISepiaTone",
-                                     @"CIVignette"];
+        __auto_type filtersNames = [weakSelf filtersNames];
         CIImage *ciImage = [[CIImage alloc] initWithImage:previewImage];
         
         for (NSString *filterName in filtersNames) {
             @autoreleasepool {
-                CIImage *filteredCIImage = [self filterWithName:filterName forImage:ciImage];
+                CIImage *filteredCIImage = [weakSelf filterWithName:filterName forImage:ciImage];
                 CGImageRef imageRef = [context createCGImage:filteredCIImage fromRect:filteredCIImage.extent];
                 UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:previewImage.scale orientation:previewImage.imageOrientation];
                 Preview *preview = [[Preview alloc] initWithName:filterName image:filteredImage];
@@ -44,26 +45,51 @@
                 CGImageRelease(imageRef);
             }
         }
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.output didReceivePreviews:previews];
-        });
-    });
+    }];
+    NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+        [self.output didReceivePreviews:previews];
+    }];
+    [completionOperation addDependency:blockOperation];
+    
+    [[NSOperationQueue currentQueue] addOperation:completionOperation];
+    [self.filterQueue addOperation:blockOperation];
 }
 
 - (void)obtainFilteredImage:(UIImage*)image withFilterName:(NSString *)filterName {
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(concurrentQueue, ^{
+    [self.filterQueue cancelAllOperations];
+    __block UIImage *filteredImage = nil;
+    __weak typeof(self) weakSelf = self;
+    NSOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
         CIImage *ciImage = [[CIImage alloc] initWithImage:image];
-        CIImage *filteredCIImage = [self filterWithName:filterName forImage:ciImage];
+        CIImage *filteredCIImage = [weakSelf filterWithName:filterName forImage:ciImage];
         CIContext *context = [[CIContext alloc] initWithOptions:nil];
         CGImageRef imageRef = [context createCGImage:filteredCIImage fromRect:filteredCIImage.extent];
-        UIImage *filteredImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:image.imageOrientation];
+        filteredImage = [UIImage imageWithCGImage:imageRef scale:image.scale orientation:image.imageOrientation];
         CGImageRelease(imageRef);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.output didReceiveFiltedImage:filteredImage];
-        });
-    });
+    }];
+    NSOperation *completionOperation = [NSBlockOperation blockOperationWithBlock:^{
+        [weakSelf.output didReceiveFiltedImage:filteredImage];
+    }];
+    [completionOperation addDependency:blockOperation];
+    
+    [[NSOperationQueue currentQueue] addOperation:completionOperation];
+    [self.filterQueue addOperation:blockOperation];
+}
+
+- (NSArray<NSString*>*)filtersNames {
+    __auto_type filtersNames = @[@"CIPhotoEffectTonal",
+                                 @"CIPhotoEffectProcess",
+                                 @"CIPhotoEffectNoir",
+                                 @"CIPhotoEffectMono",
+                                 @"CIColorPosterize",
+                                 @"CIColorInvert",
+                                 @"CIPixellate",
+                                 @"CIMaximumComponent",
+                                 @"CIMinimumComponent",
+                                 @"CIPhotoEffectTransfer",
+                                 @"CISepiaTone",
+                                 @"CIVignette"];
+    return filtersNames;
 }
 
 - (CIImage*)filterWithName:(NSString*)name forImage:(CIImage*)ciImage {
